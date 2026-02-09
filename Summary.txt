@@ -1,0 +1,128 @@
+> AIC(pooledols,olsyearfe,olscfe,olsyearcfe)
+           df       AIC
+pooledols   6 -257.7232
+olsyearfe  11 -253.4056
+olscfe     13 -279.0573
+olsyearcfe 19 -282.2847
+> BIC(pooledols,olsyearfe,olscfe,olsyearcfe)
+           df       BIC
+pooledols   6 -244.0632
+olsyearfe  11 -228.3623
+olscfe     13 -249.4606
+olsyearcfe 19 -239.0281
+> anova(olscfe)
+Analysis of Variance Table
+
+Response: Energyprice
+                                 Df   Sum Sq  Mean Sq  F value    Pr(>F)    
+Country                           8 0.176532 0.022067  21.7316 4.379e-15 ***
+factor(Crisis)                    1 0.212501 0.212501 209.2760 < 2.2e-16 ***
+factor(corrosion)                 1 0.004237 0.004237   4.1727   0.04548 *  
+factor(Crisis):factor(treatment)  1 0.024046 0.024046  23.6813 8.602e-06 ***
+Residuals                        60 0.060925 0.001015                       
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> bptest(olscfe)
+
+	studentized Breusch-Pagan test
+
+data:  olscfe
+BP = 16.255, df = 11, p-value = 0.1319
+
+coeftest(olscfe,vcov. = vcovHC(olscfe,type="HC1"))
+
+t test of coefficients:
+
+                                     Estimate Std. Error t value  Pr(>|t|)    
+(Intercept)                         0.1204275  0.0122088  9.8640 3.580e-14 ***
+CountryDenmark                     -0.0495881  0.0185126 -2.6786 0.0095248 ** 
+CountryFrance                       0.0052344  0.0129288  0.4049 0.6870163    
+CountryGermany                     -0.0212750  0.0170529 -1.2476 0.2170292    
+CountryGreece                       0.0234250  0.0201415  1.1630 0.2494252    
+CountryItaly                        0.0368125  0.0143844  2.5592 0.0130304 *  
+CountryNetherlands                  0.0237000  0.0158019  1.4998 0.1389047    
+CountrySlovenia                    -0.0689381  0.0147544 -4.6724 1.728e-05 ***
+CountrySweden                      -0.0624381  0.0157932 -3.9535 0.0002058 ***
+factor(Crisis)1                     0.0693284  0.0146704  4.7257 1.427e-05 ***
+factor(corrosion)1                 -0.0157403  0.0174443 -0.9023 0.3704950    
+factor(Crisis)1:factor(treatment)1  0.0792983  0.0193444  4.0993 0.0001264 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> stargazer(pooledols,olscfe,olsyearcfe,type = "text")
+
+=========================================================================================================
+                                                            Dependent variable:                          
+                                   ----------------------------------------------------------------------
+                                                                Energyprice                              
+                                            (1)                     (2)                     (3)          
+---------------------------------------------------------------------------------------------------------
+factor(Year)2                                                                              0.008         
+                                                                                          (0.014)        
+                                                                                                         
+factor(Year)3                                                                              0.009         
+                                                                                          (0.014)        
+                                                                                                         
+factor(Year)4                                                                              0.015         
+                                                                                          (0.014)        
+                                                                                                         
+factor(Year)5                                                                             0.033**        
+                                                                                          (0.014)        
+                                                                                                         
+factor(Year)6                                                                            0.093***        
+                                                                                          (0.017)        
+                                                                                                         
+factor(Year)7                                                                            0.099***        
+                                                                                          (0.017)        
+                                                                                                         
+factor(Year)8                                                                            0.064***        
+                                                                                          (0.017)        
+                                                                                                         
+CountryDenmark                                                   -0.050***                 0.013         
+                                                                  (0.017)                 (0.015)        
+                                                                                                         
+CountryFrance                                                      0.005                 0.072***        
+                                                                  (0.018)                 (0.017)        
+                                                                                                         
+CountryGermany                                                    -0.021                  -0.021         
+                                                                  (0.016)                 (0.015)        
+                                                                                                         
+CountryGreece                                                      0.023                   0.023         
+                                                                  (0.016)                 (0.015)        
+                                                                                                         
+CountryItaly                                                      0.037**                 0.037**        
+                                                                  (0.016)                 (0.015)        
+                                                                                                         
+CountryNetherlands                                                 0.024                   0.024         
+                                                                  (0.016)                 (0.015)        
+                                                                                                         
+CountrySlovenia                                                  -0.069***                -0.006         
+                                                                  (0.017)                 (0.015)        
+                                                                                                         
+CountrySweden                                                    -0.062***                               
+                                                                  (0.017)                                
+                                                                                                         
+factor(Crisis)1                           0.059***               0.069***                                
+                                          (0.015)                 (0.013)                                
+                                                                                                         
+factor(treatment)1                        0.056***                                       0.063***        
+                                          (0.012)                                         (0.016)        
+                                                                                                         
+factor(corrosion)1                         0.043                  -0.016                  -0.032         
+                                          (0.030)                 (0.028)                 (0.027)        
+                                                                                                         
+factor(Crisis)1:factor(treatment)1        0.089***               0.079***                0.077***        
+                                          (0.020)                 (0.016)                 (0.015)        
+                                                                                                         
+Constant                                  0.076***               0.120***                0.044***        
+                                          (0.009)                 (0.012)                 (0.015)        
+                                                                                                         
+---------------------------------------------------------------------------------------------------------
+Observations                                 72                     72                      72           
+R2                                         0.792                   0.873                   0.897         
+Adjusted R2                                0.779                   0.849                   0.864         
+Residual Std. Error                   0.039 (df = 67)         0.032 (df = 60)         0.030 (df = 54)    
+F Statistic                        63.739*** (df = 4; 67) 37.362*** (df = 11; 60) 27.630*** (df = 17; 54)
+=========================================================================================================
+Note:                                                                         *p<0.1; **p<0.05; ***p<0.01
+> 
